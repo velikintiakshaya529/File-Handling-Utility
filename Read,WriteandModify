@@ -1,0 +1,45 @@
+import java.io.*;
+public class FileHandlingUtility {
+    public static void writeToFile(String filename, String data) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+             writer.write(data);
+            System.out.println("Data written to the file: " + filename);
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+    public static void readFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            System.out.println("Reading data from the file: " + filename);
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading from the file.");
+            e.printStackTrace();
+        }
+    }
+    public static void modifyFile(String filename, String newData) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
+            writer.newLine();  
+            writer.write(newData);
+            System.out.println("New data appended to the file: " + filename);
+        } catch (IOException e) {
+            System.out.println("An error occurred while modifying the file.");
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        String filename = "fileHandlingExample.txt"; 
+        String initialData = "This is the initial content of the file.";
+        String modificationData = "This line is appended to the file as part of modification."; 
+        writeToFile(filename, initialData);
+        readFromFile(filename);
+        modifyFile(filename, modificationData);
+        readFromFile(filename);
+    }
+}
+    
+
